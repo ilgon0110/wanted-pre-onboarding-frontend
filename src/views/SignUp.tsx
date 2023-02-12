@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { signApi } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export interface ISignUpForm {
   email: string;
@@ -7,15 +8,23 @@ export interface ISignUpForm {
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const initialValue = { email: "", password: "" };
   const [formValues, setFormValues] = useState<ISignUpForm>(initialValue);
   const [formError, setFormError] = useState<ISignUpForm>(initialValue);
+  const [isSignUp, SetisSignUp] = useState(false);
   const [isValidButton, setIsValidButton] = useState(true);
   const { email, password } = formValues;
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    signApi.signUp(formValues).catch((error) => console.log(error));
+    await signApi
+      .signUp(formValues)
+      .then((res) => SetisSignUp(res.status === 201 ? true : false))
+      .catch((error) => console.log(error));
   };
+  useEffect(() => {
+    if (isSignUp) navigate("/signin");
+  }, [isSignUp, navigate]);
 
   const isValidForm = ({ email, password }: ISignUpForm) => {
     const error = { email: "", password: "" };
