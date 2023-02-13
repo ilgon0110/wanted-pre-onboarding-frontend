@@ -15,22 +15,22 @@
 
 ### 2. 로그인
 
-- [ ] 2-1) 로그인이 실패했을 경우
+- [x] 2-1) 로그인이 실패했을 경우
 
   - ERROR 문구 출력.
 
-- [ ] 2-2) 로그인이 성공했을 경우
+- [x] 2-2) 로그인이 성공했을 경우
 
   - 응답받은 JWT를 local storage에 저장
 
-- [ ] 2-3) 로그인 여부에 따른 redirect 처리
+- [x] 2-3) 로그인 여부에 따른 redirect 처리
 
   - local storage에 토큰이 있는 경우
 
-    - [ ] signIn, signUp 페이지 접속 시 todo 경로로 redirect
+    - [x] signIn, signUp 페이지 접속 시 todo 경로로 redirect
 
   - local storage에 토큰이 없는 경우
-    - [ ] todo 페이지에 접속 시 signIn 경로로 redirect
+    - [x] todo 페이지에 접속 시 signIn 경로로 redirect
 
 ### 3. TODO-LIST
 
