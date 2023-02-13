@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import { useMatch, useNavigate, Outlet } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { redirect, useMatch, useNavigate, Outlet } from "react-router-dom";
 
 function App() {
   const match = useMatch("/");
   const navigation = useNavigate();
+  const token = localStorage.getItem("access_token");
 
   useEffect(() => {
-    if (match) {
-      navigation("/signup");
-    }
-  }, [match, navigation]);
+    if (token) navigation("/todo");
+    if (!token) navigation("/signin");
+    if (match) navigation("/signup");
+  }, [match, navigation, token]);
   return (
     <>
       <Outlet />
