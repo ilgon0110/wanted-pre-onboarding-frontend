@@ -16,6 +16,7 @@ tokenApi.interceptors.request.use(
     if (!token) throw new Error("Not Valid Token");
     config.headers["Content-Type"] = "application/json";
     config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : null;
+    config.withCredentials = true;
     return config;
   },
   function (error) {
