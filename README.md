@@ -1,6 +1,6 @@
 # ![Wanted-pre-onboarding-frontend 과제]
 
-# [GitHub Page](https://ilgon0110.github.io/wanted-pre-onboarding-frontend/signin)
+# [GitHub Page](https://ilgon0110.github.io/wanted-pre-onboarding-frontend/)
 
 # How it works
 
