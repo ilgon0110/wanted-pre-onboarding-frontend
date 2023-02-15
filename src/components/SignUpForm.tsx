@@ -1,19 +1,15 @@
 import React from "react";
-import { ISignUpForm } from "../controllers/SignUp";
-import Input from "@mui/material/Input";
+import { ISignUpForm } from "@controllers/SignUp";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { LockOutlined } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 interface ISignUpFormProps {
   formValues: ISignUpForm;

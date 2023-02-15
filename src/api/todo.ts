@@ -1,4 +1,4 @@
-import { tokenApi } from "./index";
+import { tokenApi } from "@api/index";
 
 export const todoApi = {
   createToDo: async (payload: { todo: string }) => {

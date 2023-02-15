@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import SignIn from "./views/SignIn";
-import SignUp from "./views/SignUp";
-import ToDo from "./views/ToDo";
+import SignIn from "./controllers/SignIn";
+import SignUp from "./controllers/SignUp";
+import ToDo from "./controllers/ToDo";
 
 const router = createBrowserRouter([
   {

@@ -1,4 +1,4 @@
-import { ISignUpForm } from "../controllers/SignUp";
+import { ISignUpForm } from "@controllers/SignUp";
 import { authApi } from "./index";
 
 export const signApi = {

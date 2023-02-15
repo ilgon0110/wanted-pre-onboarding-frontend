@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { signApi } from "../api/auth";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthActions, useAuthValue } from "../contexts/authContext";
-import SignUpForm from "../components/SignUpForm";
+import { useNavigate } from "react-router-dom";
+import { useAuthActions } from "@contexts/authContext";
+import SignUpForm from "@components/SignUpForm";
 
 export interface ISignUpForm {
   email: string;
   password: string;
 }
 
-const Signup = () => {
+const SignUp = () => {
   const { signUp } = useAuthActions();
   const navigate = useNavigate();
   const initialValue = { email: "", password: "" };
@@ -51,7 +50,7 @@ const Signup = () => {
       setIsValidButton(true);
     }
   }, [formValues]);
-  console.log(isValidButton);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -69,4 +68,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignUp;

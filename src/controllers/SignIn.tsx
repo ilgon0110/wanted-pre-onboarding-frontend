@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signApi } from "../api/auth";
-import SignInForm from "../components/SignInForm";
-import { useAuthActions, useAuthValue } from "../contexts/authContext";
-import { ISignUpForm } from "./SignUp";
+import { useNavigate } from "react-router-dom";
+import SignInForm from "@components/SignInForm";
+import { useAuthActions, useAuthValue } from "@contexts/authContext";
+import { ISignUpForm } from "@controllers/SignUp";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ const SignIn = () => {
       setFormError(error.response.data.message);
     });
   };
-  console.log("accessToken: ", accessToken);
+
   useEffect(() => {
     if (accessToken.length) {
       localStorage.setItem("access_token", JSON.stringify(accessToken));

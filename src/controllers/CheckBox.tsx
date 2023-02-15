@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { todoApi } from "../api/todo";
-import CheckBoxForm from "../components/CheckBoxForm";
-import { useToDoListActions } from "../contexts/todoContext";
+import CheckBoxForm from "@components/CheckBoxForm";
+import { useToDoListActions } from "@contexts/todoContext";
 
 const CheckBox = ({
   id,
@@ -12,7 +11,7 @@ const CheckBox = ({
   description: string;
   handleCheckBox: (id: string, checked: boolean) => void;
 }) => {
-  const { get, add, update, remove } = useToDoListActions();
+  const { update } = useToDoListActions();
   const [isChecked, setIsChecked] = useState(false);
   const checkHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = target;

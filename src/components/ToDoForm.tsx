@@ -1,7 +1,7 @@
-import CheckBox from "../controllers/CheckBox";
-import Delete from "../controllers/Delete";
-import Edit from "../controllers/Edit";
-import styled, { css } from "styled-components";
+import CheckBox from "@controllers/CheckBox";
+import Delete from "@controllers/Delete";
+import Edit from "@controllers/Edit";
+import styled from "styled-components";
 import { Button } from "@mui/material";
 
 interface IToDoFormProps {

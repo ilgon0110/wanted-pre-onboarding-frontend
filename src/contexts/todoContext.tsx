@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
-import { todoApi } from "../api/todo";
+import { todoApi } from "@api/todo";
 
 interface IActions {
   get: () => Promise<void>;
@@ -62,19 +62,13 @@ export const ToDoProvider = ({ children }: { children: ReactNode }) => {
           setIsLoading(false);
           setToDos([...res.data]);
         });
-        console.log("get");
       },
       async add({ toDoList, todo }: { toDoList: IToDo[]; todo: string }) {
-        await todoApi
-          .createToDo({ todo })
-          .then((res) => {
-            const copyTodo = [...toDoList];
-            copyTodo.push(res.data);
-            setToDos(copyTodo);
-            console.log(res.data);
-          })
-          .catch((e) => console.log(e));
-        console.log("add");
+        await todoApi.createToDo({ todo }).then((res) => {
+          const copyTodo = [...toDoList];
+          copyTodo.push(res.data);
+          setToDos(copyTodo);
+        });
       },
       async update({
         id,
@@ -85,10 +79,7 @@ export const ToDoProvider = ({ children }: { children: ReactNode }) => {
         todo: string;
         isCompleted: boolean;
       }) {
-        await todoApi
-          .updateToDo({ id: id, todo, isCompleted })
-          .then((res) => console.log(res));
-        console.log("update");
+        await todoApi.updateToDo({ id: id, todo, isCompleted });
       },
       async remove({ toDoList, id }: { toDoList: IToDo[]; id: string }) {
         const copyTodos = [...toDoList];
@@ -98,11 +89,9 @@ export const ToDoProvider = ({ children }: { children: ReactNode }) => {
         copyTodos.splice(targetIndex, 1);
         setToDos([...copyTodos]);
         await todoApi.deleteToDo({ id });
-        console.log("remove");
       },
       async edit(toDoList: IToDo[], targetIndex: number) {
         const copyTodos = [...toDoList];
-        console.log(todos, "copyTodos: ", copyTodos);
         copyTodos[targetIndex].editMode = !copyTodos[targetIndex].editMode;
         setToDos([...copyTodos]);
       },

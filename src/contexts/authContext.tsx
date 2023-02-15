@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
-import { signApi } from "../api/auth";
-import { ISignUpForm } from "../controllers/SignUp";
+import { signApi } from "@api/auth";
+import { ISignUpForm } from "@controllers/SignUp";
 
 interface IValue {
   accessToken: string[];
@@ -21,13 +21,11 @@ const authValueContext = createContext(initialValue);
 const authActionsContext = createContext(initialAction);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  //회원가입
   const [accessToken, setAccessToken] = useState([]);
   const actions = useMemo(
     () => ({
       async signUp(formValues: ISignUpForm) {
         await signApi.signUp(formValues);
-        console.log("signup");
       },
       async signIn(formValues: ISignUpForm) {
         await signApi

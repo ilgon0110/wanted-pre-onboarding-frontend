@@ -1,19 +1,13 @@
-import React, { useContext } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { todoApi } from "../api/todo";
-import CheckBox from "./CheckBox";
-import Delete from "./Delete";
-import Edit from "./Edit";
-import { useToDoListValue, useToDoListActions } from "../contexts/todoContext";
-import ToDoForm from "../components/ToDoForm";
-import styled from "styled-components";
-import ToDoHeaderForm from "../components/ToDoHeaderForm";
+import React from "react";
+import { useEffect, useState } from "react";
+import { useToDoListValue, useToDoListActions } from "@contexts/todoContext";
+import ToDoForm from "@components/ToDoForm";
+import ToDoHeaderForm from "@components/ToDoHeaderForm";
 
 const ToDo = () => {
   const { get, add, edit } = useToDoListActions();
   const { todos: toDoList, isLoading } = useToDoListValue();
   useEffect(() => {
-    console.log("get실행");
     get();
   }, []);
 
@@ -48,9 +42,7 @@ const ToDo = () => {
   ) => {
     const { id } = event.currentTarget;
     const targetIndex = toDoList.findIndex((v) => String(v.id) === id);
-    console.log("targetIndex: ", targetIndex);
     edit(toDoList, targetIndex);
-    console.log(toDoList);
   };
 
   return (
