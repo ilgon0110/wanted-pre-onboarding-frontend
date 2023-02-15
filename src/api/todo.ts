@@ -18,4 +18,7 @@ export const todoApi = {
   }) => {
     return await tokenApi.put(`/todos/${id}`, { todo, isCompleted });
   },
+  deleteToDo: async ({ id }: { id: string }) => {
+    return await tokenApi.delete(`/todos/${id}`);
+  },
 };

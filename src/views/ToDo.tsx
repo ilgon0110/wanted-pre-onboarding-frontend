@@ -1,35 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { todoApi } from "../api/todo";
 import CheckBox from "../components/CheckBox";
-
-interface IToDo {
-  id: number;
-  todo: string;
-  isCompeleted: boolean;
-  userId: number;
-}
+import Delete from "../components/Delete";
+import Edit from "../components/Edit";
+import { useToDoListValue, useToDoListActions } from "../contexts/todoContext";
 
 const ToDo = () => {
-  const [toDoList, setToDoList] = useState<IToDo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { get, add, edit } = useToDoListActions();
+  const { todos: toDoList, isLoading } = useToDoListValue();
   useEffect(() => {
-    todoApi.getToDos().then((res) => {
-      setIsLoading(false);
-      setToDoList([...res.data]);
-    });
+    console.log("get실행");
+    get();
   }, []);
-  console.log(toDoList, isLoading);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await todoApi
-      .createToDo({ todo: formToDo })
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
-    await todoApi.getToDos().then((res) => {
-      setToDoList([...res.data]);
-    });
+    add({ toDoList, todo: formToDo });
   };
   const [formToDo, setFormToDo] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,27 +36,55 @@ const ToDo = () => {
     }
   };
 
+  const handleEdit = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const { id } = event.currentTarget;
+    const targetIndex = toDoList.findIndex((v) => String(v.id) === id);
+    console.log("targetIndex: ", targetIndex);
+    edit(toDoList, targetIndex);
+    //toDoList[targetIndex].editMode = !toDoList[targetIndex].editMode;
+    console.log(toDoList);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={formToDo}></input>
         <button type="submit">추가</button>
       </form>
-      {toDoList.map((todo) => {
-        return (
-          <li key={todo.id}>
-            <CheckBox
-              id={String(todo.id)}
-              description={todo.todo}
-              handleCheckBox={handleCheckBox}
-            />
-            <button data-testid="modify-button">수정</button>
-            <button data-testid="delete-button">삭제</button>
-          </li>
-        );
-      })}
+      {isLoading
+        ? "loading..."
+        : toDoList.map((todo) => {
+            return (
+              <li key={todo.id}>
+                <CheckBox
+                  id={String(todo.id)}
+                  description={todo.todo}
+                  handleCheckBox={handleCheckBox}
+                />
+                {todo.editMode ? (
+                  <>
+                    <Edit id={String(todo.id)} description={todo.todo} />
+                  </>
+                ) : (
+                  <>
+                    <span>{todo.todo}</span>
+                    <button
+                      data-testid="modify-button"
+                      id={String(todo.id)}
+                      onClick={(e) => handleEdit(e)}
+                    >
+                      수정
+                    </button>
+                    <Delete id={String(todo.id)} />
+                  </>
+                )}
+              </li>
+            );
+          })}
     </>
   );
 };
 
-export default React.memo(ToDo);
+export default ToDo;
