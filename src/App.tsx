@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { redirect, useMatch, useNavigate, Outlet } from "react-router-dom";
+import { ToDoProvider } from "./contexts/todoContext";
 
 function App() {
   const match = useMatch("/");
@@ -7,14 +8,16 @@ function App() {
   const token = localStorage.getItem("access_token");
 
   useEffect(() => {
+    console.log("App.js useEffect", token);
     if (token) navigation("/todo");
     if (!token) navigation("/signin");
-    if (match) navigation("/signup");
-  }, [match, navigation, token]);
+  }, [token]);
   return (
-    <>
-      <Outlet />
-    </>
+    <ToDoProvider>
+      <>
+        <Outlet />
+      </>
+    </ToDoProvider>
   );
 }
 
