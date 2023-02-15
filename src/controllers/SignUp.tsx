@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { signApi } from "../api";
-import { useNavigate } from "react-router-dom";
+import { signApi } from "../api/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthActions, useAuthValue } from "../contexts/authContext";
+import SignUpForm from "../components/SignUpForm";
 
 export interface ISignUpForm {
   email: string;
   password: string;
 }
 
-const SignUp = () => {
+const Signup = () => {
+  const { signUp } = useAuthActions();
   const navigate = useNavigate();
   const initialValue = { email: "", password: "" };
   const [formValues, setFormValues] = useState<ISignUpForm>(initialValue);
   const [formError, setFormError] = useState<ISignUpForm>(initialValue);
   const [isSignUp, SetisSignUp] = useState(false);
   const [isValidButton, setIsValidButton] = useState(true);
-  const { email, password } = formValues;
-  const handleSubmit = async (event: React.FormEvent) => {
+
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    await signApi
-      .signUp(formValues)
-      .then((res) => SetisSignUp(res.status === 201 ? true : false))
-      .catch((error) => console.log(error));
+    signUp(formValues).then(() => SetisSignUp(true));
   };
   useEffect(() => {
     if (isSignUp) navigate("/signin");
@@ -40,19 +40,18 @@ const SignUp = () => {
 
   useEffect(() => {
     const error = isValidForm(formValues);
-    const { email, password } = formValues;
     setFormError(error);
     if (
       Object.values(error).every((msg) => msg.length === 0) &&
-      email !== "" &&
-      password !== ""
+      formValues.email !== "" &&
+      formValues.password !== ""
     ) {
       setIsValidButton(false);
     } else {
       setIsValidButton(true);
     }
   }, [formValues]);
-
+  console.log(isValidButton);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -60,34 +59,14 @@ const SignUp = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <input
-          data-testid="email-input"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-        <span>{formError.email}</span>
-      </div>
-      <div>
-        <input
-          data-testid="password-input"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-        <span>{formError.password}</span>
-      </div>
-
-      <button
-        type="submit"
-        data-testid="signup-button"
-        disabled={isValidButton}
-      >
-        회원가입
-      </button>
+      <SignUpForm
+        formValues={formValues}
+        formError={formError}
+        isValidButton={isValidButton}
+        handleChange={handleChange}
+      />
     </form>
   );
 };
 
-export default SignUp;
+export default Signup;

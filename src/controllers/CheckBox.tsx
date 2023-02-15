@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { todoApi } from "../api/todo";
+import CheckBoxForm from "../components/CheckBoxForm";
 import { useToDoListActions } from "../contexts/todoContext";
 
 const CheckBox = ({
@@ -20,14 +21,7 @@ const CheckBox = ({
     update({ id, todo: description, isCompleted: checked });
   };
   return (
-    <label>
-      <input
-        type="checkbox"
-        id={String(id)}
-        checked={isChecked}
-        onChange={(e) => checkHandler(e)}
-      />
-    </label>
+    <CheckBoxForm id={id} isChecked={isChecked} checkHandler={checkHandler} />
   );
 };
 

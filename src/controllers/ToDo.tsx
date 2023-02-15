@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { todoApi } from "../api/todo";
-import CheckBox from "../components/CheckBox";
-import Delete from "../components/Delete";
-import Edit from "../components/Edit";
+import CheckBox from "./CheckBox";
+import Delete from "./Delete";
+import Edit from "./Edit";
 import { useToDoListValue, useToDoListActions } from "../contexts/todoContext";
+import ToDoForm from "../components/ToDoForm";
 
 const ToDo = () => {
   const { get, add, edit } = useToDoListActions();
@@ -55,34 +56,16 @@ const ToDo = () => {
       </form>
       {isLoading
         ? "loading..."
-        : toDoList.map((todo) => {
-            return (
-              <li key={todo.id}>
-                <CheckBox
-                  id={String(todo.id)}
-                  description={todo.todo}
-                  handleCheckBox={handleCheckBox}
-                />
-                {todo.editMode ? (
-                  <>
-                    <Edit id={String(todo.id)} description={todo.todo} />
-                  </>
-                ) : (
-                  <>
-                    <span>{todo.todo}</span>
-                    <button
-                      data-testid="modify-button"
-                      id={String(todo.id)}
-                      onClick={(e) => handleEdit(e)}
-                    >
-                      수정
-                    </button>
-                    <Delete id={String(todo.id)} />
-                  </>
-                )}
-              </li>
-            );
-          })}
+        : toDoList.map((todo) => (
+            <ToDoForm
+              key={todo.id}
+              id={String(todo.id)}
+              todo={todo.todo}
+              handleCheckBox={handleCheckBox}
+              handleEdit={handleEdit}
+              editMode={todo.editMode}
+            />
+          ))}
     </>
   );
 };
