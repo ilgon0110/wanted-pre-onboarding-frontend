@@ -19,6 +19,10 @@ const ToDo = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!formToDo.length) {
+      alert("Please write any todo");
+      return;
+    }
     add({ toDoList, todo: formToDo });
   };
   const [formToDo, setFormToDo] = useState("");

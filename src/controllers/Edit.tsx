@@ -34,7 +34,6 @@ const Edit = ({ id, description }: { id: string; description: string }) => {
     <EditForm
       id={id}
       handleChange={handleChange}
-      handleEdit={handleEdit}
       handleSubmit={handleSubmit}
       editValue={editValue}
     />

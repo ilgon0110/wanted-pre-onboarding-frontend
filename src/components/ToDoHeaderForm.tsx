@@ -23,8 +23,14 @@ const ToDoHeaderForm = ({
           onChange={handleChange}
           value={formToDo}
           size={"small"}
+          inputProps={{ "data-testid": "new-todo-input" }}
         />
-        <Button variant="contained" type="submit" size="medium">
+        <Button
+          variant="contained"
+          type="submit"
+          size="medium"
+          data-testid="new-todo-add-button"
+        >
           추가
         </Button>
       </form>

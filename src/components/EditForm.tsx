@@ -1,11 +1,12 @@
 import { TextField, Button } from "@mui/material";
 
 interface IEditFormProps {
-  editValue: any;
-  handleChange: any;
-  handleSubmit: any;
-  id: any;
-  handleEdit: any;
+  editValue: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  id: string;
 }
 
 const EditForm = ({
@@ -13,7 +14,6 @@ const EditForm = ({
   handleChange,
   handleSubmit,
   id,
-  handleEdit,
 }: IEditFormProps) => {
   return (
     <>
@@ -22,10 +22,10 @@ const EditForm = ({
         label="edit todo"
         variant="outlined"
         type="text"
-        data-testid="modify-input"
         value={editValue}
         onChange={handleChange}
         size={"small"}
+        inputProps={{ "data-testid": "modify-input" }}
       />
       <Button
         variant="contained"
@@ -37,7 +37,7 @@ const EditForm = ({
       </Button>
       <Button
         variant="outlined"
-        data-testid="submit-button"
+        data-testid="cancel-button"
         id={String(id)}
         onClick={handleSubmit}
         color="error"

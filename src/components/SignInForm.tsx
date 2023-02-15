@@ -52,7 +52,7 @@ const SignInForm = ({
         name="email"
         autoComplete="email"
         autoFocus
-        data-testid="email-input"
+        inputProps={{ "data-testid": "email-input" }}
         value={formValues.email}
         onChange={handleChange}
       />
@@ -65,7 +65,7 @@ const SignInForm = ({
         type="password"
         id="password"
         autoComplete="current-password"
-        data-testid="password-input"
+        inputProps={{ "data-testid": "password-input" }}
         value={formValues.password}
         onChange={handleChange}
       />

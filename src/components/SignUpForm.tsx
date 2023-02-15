@@ -1,5 +1,6 @@
 import React from "react";
 import { ISignUpForm } from "../controllers/SignUp";
+import Input from "@mui/material/Input";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -49,10 +50,9 @@ const SignUpForm = ({
         required
         fullWidth
         id="email"
-        label="Email Address"
         autoComplete="email"
         autoFocus
-        data-testid="email-input"
+        inputProps={{ "data-testid": "email-input" }}
         name="email"
         value={formValues.email}
         onChange={handleChange}
@@ -62,11 +62,10 @@ const SignUpForm = ({
         margin="normal"
         required
         fullWidth
-        label="Password"
         type="password"
         id="password"
         autoComplete="current-password"
-        data-testid="password-input"
+        inputProps={{ "data-testid": "password-input" }}
         name="password"
         value={formValues.password}
         onChange={handleChange}
