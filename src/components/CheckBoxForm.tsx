@@ -1,3 +1,6 @@
+import { Checkbox } from "@mui/material";
+import styled, { css } from "styled-components";
+
 interface ICheckBoxFormProps {
   id: string;
   isChecked: boolean;
@@ -7,8 +10,7 @@ interface ICheckBoxFormProps {
 const CheckBoxForm = ({ id, isChecked, checkHandler }: ICheckBoxFormProps) => {
   return (
     <label>
-      <input
-        type="checkbox"
+      <Checkbox
         id={String(id)}
         checked={isChecked}
         onChange={(e) => checkHandler(e)}

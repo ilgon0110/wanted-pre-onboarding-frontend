@@ -1,3 +1,5 @@
+import { Button } from "@mui/material";
+
 interface IDeleteFormProps {
   id: string;
   handleDelete: () => void;
@@ -5,9 +7,16 @@ interface IDeleteFormProps {
 
 const DeleteForm = ({ id, handleDelete }: IDeleteFormProps) => {
   return (
-    <button data-testid="delete-button" id={id} onClick={handleDelete}>
+    <Button
+      variant="outlined"
+      data-testid="delete-button"
+      id={id}
+      onClick={handleDelete}
+      size={"small"}
+      color="error"
+    >
       삭제
-    </button>
+    </Button>
   );
 };
 

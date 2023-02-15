@@ -1,3 +1,5 @@
+import { TextField, Button } from "@mui/material";
+
 interface IEditFormProps {
   editValue: any;
   handleChange: any;
@@ -15,21 +17,33 @@ const EditForm = ({
 }: IEditFormProps) => {
   return (
     <>
-      <input
+      <TextField
+        id="outlined-basic"
+        label="edit todo"
+        variant="outlined"
+        type="text"
         data-testid="modify-input"
         value={editValue}
         onChange={handleChange}
+        size={"small"}
       />
-      <button
+      <Button
+        variant="contained"
         data-testid="submit-button"
         id={String(id)}
         onClick={handleSubmit}
       >
         제출
-      </button>
-      <button data-testid="cancel-button" id={String(id)} onClick={handleEdit}>
+      </Button>
+      <Button
+        variant="outlined"
+        data-testid="submit-button"
+        id={String(id)}
+        onClick={handleSubmit}
+        color="error"
+      >
         취소
-      </button>
+      </Button>
     </>
   );
 };

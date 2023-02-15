@@ -1,6 +1,8 @@
 import CheckBox from "../controllers/CheckBox";
 import Delete from "../controllers/Delete";
 import Edit from "../controllers/Edit";
+import styled, { css } from "styled-components";
+import { Button } from "@mui/material";
 
 interface IToDoFormProps {
   id: string;
@@ -9,6 +11,35 @@ interface IToDoFormProps {
   handleEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   editMode: boolean | undefined;
 }
+
+const Remove = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dee2e6;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: #ff6b6b;
+  }
+  display: none;
+`;
+
+const TodoItemBlock = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  &:hover {
+    ${Remove} {
+      display: initial;
+    }
+  }
+  li {
+    list-style: none;
+  }
+`;
+
 const NoEditMode = ({
   todo,
   id,
@@ -21,13 +52,15 @@ const NoEditMode = ({
   return (
     <>
       <span>{todo}</span>
-      <button
+      <Button
+        variant="contained"
         data-testid="modify-button"
         id={id}
         onClick={(e) => handleEdit(e)}
+        size="small"
       >
         수정
-      </button>
+      </Button>
       <Delete id={id} />
     </>
   );
@@ -41,14 +74,16 @@ const ToDoForm = ({
   editMode,
 }: IToDoFormProps) => {
   return (
-    <li key={id}>
-      <CheckBox id={id} description={todo} handleCheckBox={handleCheckBox} />
-      {editMode ? (
-        <Edit id={id} description={todo} />
-      ) : (
-        <NoEditMode id={id} todo={todo} handleEdit={handleEdit} />
-      )}
-    </li>
+    <TodoItemBlock>
+      <li key={id}>
+        <CheckBox id={id} description={todo} handleCheckBox={handleCheckBox} />
+        {editMode ? (
+          <Edit id={id} description={todo} />
+        ) : (
+          <NoEditMode id={id} todo={todo} handleEdit={handleEdit} />
+        )}
+      </li>
+    </TodoItemBlock>
   );
 };
 
